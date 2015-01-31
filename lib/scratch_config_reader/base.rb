@@ -44,6 +44,14 @@ module ScratchConfigReader
       @values.key?(key.to_s)
     end
 
+    def inspect
+      output = []
+      @values.each do |k, v|
+        output << "#{k} = #{v.inspect}"
+      end
+      output.compact.sort.join("\n")
+    end
+
     #############################################
     # Primary parsing method
     # Returns a key/value pair for a successfully parsed line.
