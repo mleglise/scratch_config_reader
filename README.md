@@ -6,23 +6,31 @@ This is a basic exercise in standard Ruby.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Although packaged as a gem, this is just a demo. It's not meant to be used as
+a gem! Just download the source code repo, open a command line, and navigate to
+this folder. Then execute:
 
-    gem 'scratch_config_reader'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install scratch_config_reader
+```bash
+$ bundle
+```
 
 ## Usage
 
 Run spec tests:
 ```bash
 $ rake spec
+```
+
+Use it in an interactive console:
+```bash
+$ pry
+```
+
+```ruby
+require 'scratch_config_reader'
+config = ScratchConfigReader.parse('spec/example/config_file.txt')
+config['server_id']
+config[:verbose]
 ```
 
 
