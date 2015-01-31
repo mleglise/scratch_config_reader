@@ -20,4 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run spec tests:
+```bash
+$ rake spec
+```
+
+
+## Known Limitations
+
+* cannot parse Integers or Floats that contain commas
+* values '0' or '1' will be interpreted as Integers, not true/false
