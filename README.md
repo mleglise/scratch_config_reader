@@ -28,5 +28,6 @@ $ rake spec
 
 ## Known Limitations
 
-* cannot parse Integers or Floats that contain commas
-* values '0' or '1' will be interpreted as Integers, not true/false
+* Cannot parse Integers or Floats that contain commas.
+* Values '0' or '1' will be interpreted as Integers, not true/false.
+* Keys are stored as strings, although ideally they should be symbols.

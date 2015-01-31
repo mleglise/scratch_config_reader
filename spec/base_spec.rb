@@ -19,6 +19,28 @@ end
 
 RSpec.describe "ScratchConfigReader::Base" do
 
+  describe "retrieval" do
+    let(:base){ ScratchConfigReader::Base.new('example/config_file.txt') }
+
+    describe "[]" do
+      it { expect(base['host']).to eq 'test.com' }
+      it { expect(base[:log_file_path]).to eq '/tmp/logfile.log' }
+      it { expect(base[:unknown]).to eq nil }
+    end
+
+    describe "fetch" do
+      it { expect(base.fetch('host')).to eq 'test.com' }
+      it { expect(base.fetch(:unknown, )).to eq nil }
+      it { expect(base.fetch(:unknown, 'foobar')).to eq 'foobar' }
+    end
+
+    describe "key" do
+      it { expect(base.key?('host')).to eq true }
+      it { expect(base.key?(:host)).to eq true }
+      it { expect(base.key?(:unknown)).to eq false }
+    end
+  end
+
   describe "line parsing" do
     context "empty" do
       parsed = ScratchConfigReader::Base.parse_line('')

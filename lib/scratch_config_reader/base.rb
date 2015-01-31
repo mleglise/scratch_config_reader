@@ -6,8 +6,46 @@ module ScratchConfigReader
 
     def initialize(filepath)
       @config_file = File.join( FileUtils.pwd, filepath )
+      @values = {}
+
+      unless File.exist?(@config_file)
+        puts "File Not Found: #{@config_file}"
+        return false
+      end
+
+      # Read the file, parse the lines, and add them to the values hash.
+      File.open(@config_file) do |cfile|
+        cfile.each do |line|
+          if parsed_line = self.class.parse_line(line)
+            @values[ parsed_line[0] ] = parsed_line[1]
+          end
+        end
+      end
     end
 
+    #############################################
+    # Accessor methods
+    def [](key)
+      fetch(key.to_s)
+    end
+
+    def fetch(key, default_value = nil)
+      key = key.to_s
+      if key?(key)
+        return @values[key]
+      elsif default_value
+        return default_value
+      else
+        return nil
+      end
+    end
+
+    def key?(key)
+      @values.key?(key.to_s)
+    end
+
+    #############################################
+    # Primary parsing method
     # Returns a key/value pair for a successfully parsed line.
     # Returns nil for comments or errors.
     def self.parse_line(line)
